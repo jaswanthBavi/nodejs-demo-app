@@ -1,0 +1,39 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Checkout') {
+      steps {
+        git 'https://github.com/your-username/nodejs-demo-app.git'
+      }
+    }
+
+    stage('Install Dependencies') {
+      steps {
+        sh 'npm install'
+      }
+    }
+
+    stage('Run Tests') {
+      steps {
+        sh 'npm test'
+      }
+    }
+
+    stage('Build Docker Image') {
+      steps {
+        sh 'docker build -t docker/nodejs-demo-app .'
+      }
+    }
+
+    stage('Push to DockerHub') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: '5c3c58fd-724f-4b8b-9602-2b8e824b4232', usernameVariable: 'bavijaswanth', passwordVariable: 'Jaswanth@0227')]) {
+          sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+          sh 'docker push yourdockerhubusername/nodejs-demo-app'
+        }
+      }
+    }
+  }
+}
+
