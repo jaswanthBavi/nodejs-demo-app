@@ -28,7 +28,7 @@ pipeline {
 
     stage('Push to DockerHub') {
       steps {
-        withCredentials([usernamePassword(credentialsId: '5c3c58fd-724f-4b8b-9602-2b8e824b4232', usernameVariable: 'bavijaswanth', passwordVariable: 'Jaswanth@0227')]) {
+        withCredentials([usernamePassword(credentialsId: '5c3c58fd-724f-4b8b-9602-2b8e824b4232', usernameVariable: 'bavijaswanth', passwordVariable: ' 5c3c58fd-724f-4b8b-9602-2b8e824b4232')]) {
           sh 'echo $DOCKER_PASS | docker login -u $bavijaswanth --password-stdin'
           sh 'docker push jaswanthbavi/nodejs-demo-app.git'
         }
